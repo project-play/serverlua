@@ -1,5 +1,5 @@
 
---https://pastebin.com/TBUUntdq
+--https://pastebin.com/TBUUntdq  david.lua
 
 
 -- Empfänger-Skript für Wireless Modems

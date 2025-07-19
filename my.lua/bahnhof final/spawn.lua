@@ -1,4 +1,4 @@
---https://pastebin.com/LAGby2rH
+--https://pastebin.com/LAGby2rH  spawn.lua
 
 -- Empfänger-Skript für Wireless Modems
 -- Zeigt die zuletzt empfangenen Zugdaten für zwei separate Sender-IDs in unterschiedlichen Zeilen an.

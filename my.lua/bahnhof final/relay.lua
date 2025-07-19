@@ -1,4 +1,4 @@
--- https://pastebin.com/4HatcTqd
+-- https://pastebin.com/4HatcTqd  relay.lua
 
 local modem = peripheral.find("modem")
 if modem then
