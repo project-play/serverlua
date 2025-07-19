@@ -56,11 +56,12 @@ while true do
             countdown1 = message.countdown
             
 
-        sendeZugInfo()
+        
         else
             
         end
     else
         print("Ungültige Daten empfangen!")
     end
+    sendeZugInfo()
 end
