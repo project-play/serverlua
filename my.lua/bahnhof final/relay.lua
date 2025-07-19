@@ -32,7 +32,7 @@ local function sendeZugInfo()
         }
         print(linie1, ziel1, abfahrt1, countdown1)
         -- Broadcast an alle (alternativ: rednet.send(ID, daten))
-        rednet.broadcast(daten, "zuginfo")
+        rednet.broadcast(daten, "zuginfo1")
     end
 end
 

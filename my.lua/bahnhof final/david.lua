@@ -205,7 +205,7 @@ print("Drücke STRG+T, um das Programm zu beenden.")
 -- Hauptloop zum Empfangen von Nachrichten
 while true do
     -- Empfängt eine Nachricht über Rednet mit dem Protokoll "zuginfo"
-    local senderID, message, protocol = rednet.receive("zuginfo")
+    local senderID, message, protocol = rednet.receive("zuginfo1")
 
     print("Empfangen von SenderID:", message.senderID)
     print("Empfangene Nachricht: ", textutils.serialize(message))
