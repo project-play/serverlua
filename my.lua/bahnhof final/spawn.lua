@@ -1,3 +1,5 @@
+--https://pastebin.com/LAGby2rH
+
 -- Empfänger-Skript für Wireless Modems
 -- Zeigt die zuletzt empfangenen Zugdaten für zwei separate Sender-IDs in unterschiedlichen Zeilen an.
 -- Dieser Code verwendet KEINE Listen oder Tabellen, nur individuelle Variablen,
