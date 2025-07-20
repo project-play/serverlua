@@ -69,7 +69,7 @@ end
 local function formatWithSpaces(text, length)
     text = tostring(text) -- Stellt sicher, dass es ein String ist
     if #text > length then
-        return text:sub(1, length) -- Kürzt den Text, wenn er zu lang ist
+        return text:sub(1, length)-- Kürzt den Text, wenn er zu lang ist
     else
         return text .. string.rep(" ", length - #text) -- Fügt Leerzeichen hinzu, wenn er zu kurz ist
     end

@@ -67,7 +67,7 @@ end
 local function formatWithSpaces(text, length)
     text = tostring(text) -- Stellt sicher, dass es ein String ist
     if #text > length then
-        return text:sub(1, length) -- Kürzt den Text, wenn er zu lang ist
+        return text:sub(1, length)-- Kürzt den Text, wenn er zu lang ist
     else
         return text .. string.rep(" ", length - #text) -- Fügt Leerzeichen hinzu, wenn er zu kurz ist
     end
@@ -75,7 +75,7 @@ end
 
 -- Maximale Breiten für jedes Feld in der Anzeige (als einzelne Variablen)
 local maxLinieLength = 3
-local maxZielLength = 14
+local maxZielLength = 12
 local maxAbfahrtLength = 7
 local maxSteigLength = 6
 
@@ -87,11 +87,11 @@ local allowedSenderID3 = 1033
 -- Bei Bedarf können hier weitere allowedSenderID3, allowedSenderID4 usw. hinzugefügt werden.
 
 -- Variablen zur Speicherung der Daten für SenderID1 (erste Zeile)
-local linie1, ziel1, abfahrt1, bahnsteig1 = nil, nil, nil, nil
+local linie1, ziel1, abfahrt1, bahnsteig1 = nil, nil, 0, nil
 
 -- Variablen zur Speicherung der Daten für SenderID2 (zweite Zeile)
-local linie2, ziel2, abfahrt2, bahnsteig2 = nil, nil, nil, nil
-local linie3, ziel3, abfahrt3, bahnsteig3 = nil, nil, nil, nil
+local linie2, ziel2, abfahrt2, bahnsteig2 = nil, nil, 0, nil
+local linie3, ziel3, abfahrt3, bahnsteig3 = nil, nil, 0, nil
 
 -- Funktion zum Extrahieren des Bahnsteigs aus der SenderID
 local function getBahnsteigFromSenderID(senderID)
@@ -129,20 +129,20 @@ local function aktualisiereAnzeige(l1, z1, a1, b1, l2, z2, a2, b2, l3, z3, a3, b
     
     monitor.write(
         formatWithSpaces("Li.", maxLinieLength))
-    
+    monitor.write(" ")
         monitor.write(
        formatWithSpaces("Ziel", maxZielLength))
     
        monitor.write(
-       formatWithSpaces("Abfahrt", maxAbfahrtLength))
-    
+       formatWithSpaces("Abfahrt ", maxAbfahrtLength))
+    monitor.write(" ")
        monitor.write(
        formatWithSpaces("Steig", maxSteigLength))
     
       
         
         
-
+if formatAbfahrtint(a1) < formatAbfahrtint(a2) then
     -- Anzeige der Zugdaten für die erste Zeile (SenderID1)
     monitor.setCursorPos(1, 2)
     if l1 and z1 and a1 and b1 then
@@ -156,35 +156,34 @@ local function aktualisiereAnzeige(l1, z1, a1, b1, l2, z2, a2, b2, l3, z3, a3, b
         
             monitor.setTextColor(c)
         monitor.write(
-        formatWithSpaces(l1, maxLinieLength))
+        formatWithSpaces(" " .. l1, maxLinieLength))
 
         monitor.setTextColor(yellow)
         monitor.write(
         formatWithSpaces(z1, maxZielLength))
+        monitor.write("s")
             if ai1 > 90 then
                 print(ai1)
                 monitor.setTextColor(green)
-                monitor.write(formatWithSpaces(abf1, maxAbfahrtLength))
+                monitor.write(formatWithSpaces(" " .. abf1, maxAbfahrtLength))
             elseif ai1 < 30 then
                 print(ai1)
                 monitor.setTextColor(red)
-                monitor.write(formatWithSpaces(abf1, maxAbfahrtLength))
+                monitor.write(formatWithSpaces(" " .. abf1, maxAbfahrtLength))
             else
                 print(ai2)
                 monitor.setTextColor(yellow)
-                monitor.write(formatWithSpaces(abf1, maxAbfahrtLength))
+                monitor.write(formatWithSpaces(" " .. abf1, maxAbfahrtLength))
             end
         monitor.setTextColor(white)
         monitor.write(
-        formatWithSpaces(tostring(b1), maxSteigLength))
+        formatWithSpaces("   " .. tostring(b1), maxSteigLength))
 
     else
         monitor.setTextColor(red)
         monitor.write("Warte auf Daten (Sender 1)...")
     end
-
-    -- Anzeige der Zugdaten für die zweite Zeile (SenderID2)
-    monitor.setCursorPos(1, 3)
+     monitor.setCursorPos(1, 3)
     if l2 and z2 and a2 and b2 then
         local abf2 = formatAbfahrt(a2)
         local ai2 = formatAbfahrtint(a2)
@@ -197,8 +196,8 @@ local function aktualisiereAnzeige(l1, z1, a1, b1, l2, z2, a2, b2, l3, z3, a3, b
         
             
            monitor.setTextColor(c1)
-        monitor.write(
-        formatWithSpaces(l2, maxLinieLength))
+       monitor.write(
+        formatWithSpaces(" " .. l2, maxLinieLength))
 
         monitor.setTextColor(yellow)
         monitor.write(
@@ -206,19 +205,19 @@ local function aktualisiereAnzeige(l1, z1, a1, b1, l2, z2, a2, b2, l3, z3, a3, b
             if ai2 > 90 then
                 print(ai2)
                 monitor.setTextColor(green)
-                monitor.write(formatWithSpaces(abf2, maxAbfahrtLength))
+                monitor.write(formatWithSpaces("  " .. abf2, maxAbfahrtLength))
             elseif ai2 < 30 then
                 print(ai2)
                 monitor.setTextColor(red)
-                monitor.write(formatWithSpaces(abf2, maxAbfahrtLength))
+                monitor.write(formatWithSpaces("  " .. abf2, maxAbfahrtLength))
             else
                 print(ai2)
                 monitor.setTextColor(yellow)
-                monitor.write(formatWithSpaces(abf2, maxAbfahrtLength))
+                monitor.write(formatWithSpaces("  " .. abf2, maxAbfahrtLength))
             end
         monitor.setTextColor(white)
         monitor.write(
-        formatWithSpaces(tostring(b2), maxSteigLength))
+        formatWithSpaces("    " .. tostring(b2), maxSteigLength))
             
         
         
@@ -226,7 +225,91 @@ local function aktualisiereAnzeige(l1, z1, a1, b1, l2, z2, a2, b2, l3, z3, a3, b
         monitor.setTextColor(red)
         monitor.write("Warte auf Daten (Sender 2)...")
     end
+else
+     monitor.setCursorPos(1, 2)
+    if l2 and z2 and a2 and b2 then
+        local abf2 = formatAbfahrt(a2)
+        local ai2 = formatAbfahrtint(a2)
+        local displayLine2 =
+            formatWithSpaces(l2, maxLinieLength) ..
+            formatWithSpaces(z2, maxZielLength) ..
+            formatWithSpaces(abf2, maxAbfahrtLength) ..
+            formatWithSpaces(tostring(b2), maxSteigLength)
 
+        
+            
+           monitor.setTextColor(c1)
+         monitor.write(
+        formatWithSpaces(" " .. l2, maxLinieLength))
+
+        monitor.setTextColor(yellow)
+        monitor.write(
+        formatWithSpaces(z2, maxZielLength))
+            if ai2 > 90 then
+                print(ai2)
+                monitor.setTextColor(green)
+                monitor.write(formatWithSpaces("  " .. abf2, maxAbfahrtLength))
+            elseif ai2 < 30 then
+                print(ai2)
+                monitor.setTextColor(red)
+                monitor.write(formatWithSpaces("  " .. abf2, maxAbfahrtLength))
+            else
+                print(ai2)
+                monitor.setTextColor(yellow)
+                monitor.write(formatWithSpaces("  " .. abf2, maxAbfahrtLength))
+            end
+        monitor.setTextColor(white)
+        monitor.write(
+        formatWithSpaces("    " .. tostring(b2), maxSteigLength))
+            
+        
+        
+    else
+        monitor.setTextColor(red)
+        monitor.write("Warte auf Daten (Sender 2)...")
+    end
+    monitor.setCursorPos(1, 3)
+    if l1 and z1 and a1 and b1 then
+        local abf1 = formatAbfahrt(a1)
+        local ai1 = formatAbfahrtint(a1)
+        local displayLine1 =
+            formatWithSpaces(l1, maxLinieLength) ..
+            formatWithSpaces(z1, maxZielLength) ..
+            formatWithSpaces(abf1, maxAbfahrtLength) ..
+            formatWithSpaces(tostring(b1), maxSteigLength)
+        
+            monitor.setTextColor(c)
+       monitor.write(
+        formatWithSpaces(" " .. l1, maxLinieLength))
+
+        monitor.setTextColor(yellow)
+        monitor.write(
+        formatWithSpaces(z1, maxZielLength))
+        monitor.write("s")
+            if ai1 > 90 then
+                print(ai1)
+                monitor.setTextColor(green)
+                monitor.write(formatWithSpaces(" " .. abf1, maxAbfahrtLength))
+            elseif ai1 < 30 then
+                print(ai1)
+                monitor.setTextColor(red)
+                monitor.write(formatWithSpaces(" " .. abf1, maxAbfahrtLength))
+            else
+                print(ai2)
+                monitor.setTextColor(yellow)
+                monitor.write(formatWithSpaces(" " .. abf1, maxAbfahrtLength))
+            end
+        monitor.setTextColor(white)
+        monitor.write(
+        formatWithSpaces("   " .. tostring(b1), maxSteigLength))
+
+    else
+        monitor.setTextColor(red)
+        monitor.write("Warte auf Daten (Sender 1)...")
+    end
+    -- Anzeige der Zugdaten für die zweite Zeile (SenderID2)
+   
+end
     monitor.setCursorPos(1, 4)
     monitor.setTextColor(colors.gray)
     centerText(getFormattedDateTime(), 4)
@@ -267,7 +350,14 @@ while true do
             ziel2 = message.ziel
             abfahrt2 = message.abfahrt
             bahnsteig2 = currentBahnsteig
-            c1 = colors.green
+            c1 = colors.red
+        elseif message.senderID == allowedSenderID3 then
+            -- Aktualisiere die Variablen für SenderID2
+            linie3 = message.linie
+            ziel3 = message.ziel
+            abfahrt3 = message.abfahrt
+            bahnsteig3 = currentBahnsteig
+            c2 = colors.red
         else
             print("Nachricht von nicht erlaubter SenderID empfangen:", message.senderID)
         end
