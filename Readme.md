@@ -8,6 +8,5 @@ my.lua/bahnhof final
 
 
 
-TODO: Formatierung und Sortierung
-
+TODO:
 Initscript with savefiles
